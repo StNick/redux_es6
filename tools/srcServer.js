@@ -2,7 +2,7 @@ import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
-import open from 'open';
+// import open from 'open';
 
 /* eslint-disable no-console */
 
@@ -25,6 +25,12 @@ app.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {
-    open(`http://localhost:${port}`);
+    const exec = require('child_process').exec;
+    exec(`explorer.exe http://localhost:${port}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+    });
   }
 });
